@@ -19,26 +19,36 @@ def weekDay(day):
     return switcher.get(day)
 
 
-def weekAverage():
-    averageTime = timedelta(hours=0, minutes=0, seconds=0)
+def weekTotal(Timetoday):
+    totalTime = Timetoday
     with open(path, newline='\n') as file:
         lines = file.readlines()
     file.close()
+    del lines[0]
+    if(len(lines) == 0):
+        return abs(totalTime)
     lines.reverse()
     for line in lines:
         if(line != '\r\n'):
             split = line.split(',')
             if(split[2] == "Friday"):
-                return abs(averageTime)
+                return abs(totalTime)
+            print("split for time", split[1].split(':'))
             h, m, s = split[1].split(':')
-            averageTime += timedelta(hours=int(h), minutes=int(m), seconds=float(s))
+            totalTime += timedelta(hours=int(h), minutes=int(m), seconds=float(s))
 
 
 def calcTime():
     new = datetime.now()
-    row = [now.date(), new - now, weekDay(now.weekday()), weekAverage()]
+    if not(os.path.isfile(path)):
+        header = ['Date', 'TimeToday', 'DayOfWeek', 'TotalTimeWeek']
+        with open(path, 'w+', newline='\n') as f:
+            writer = csv.writer(f)
+            writer.writerow(header)
+            f.close()
+    row = [now.date(), new - now, weekDay(now.weekday()), weekTotal(new - now)]
     print(row)
-    with open(path, 'a', newline='\n') as csvFile:
+    with open(path, 'a+', newline='\n') as csvFile:
         writer = csv.writer(csvFile)
         writer.writerow(row)
     csvFile.close()
