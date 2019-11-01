@@ -32,7 +32,6 @@ def weekTotal(Timetoday):
         if line != '\r\n':
             split = line.split(',')
             if split[3] != now.isocalendar()[1]:
-                print(split[3])
                 return abs(totalTime)
             h, m, s = split[1].split(':')
             totalTime += timedelta(hours=int(h), minutes=int(m), seconds=float(s))
