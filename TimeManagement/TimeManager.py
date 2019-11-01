@@ -58,7 +58,7 @@ while True:
     if k == "exit":
         calcTime()
         print("Shutting down")
-        #os.system("shutdown /s /t 1") #only works on windows, change if for linux
+        os.system("shutdown /s /t 1") #only works on windows, change if for linux
         break
     else:
         print("Type exit to shutdown")
