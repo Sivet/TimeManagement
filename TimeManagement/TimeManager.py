@@ -25,28 +25,28 @@ def weekTotal(Timetoday):
         lines = file.readlines()
     file.close()
     del lines[0]
-    if(len(lines) == 0):
+    if not lines:
         return abs(totalTime)
     lines.reverse()
     for line in lines:
-        if(line != '\r\n'):
+        if line != '\r\n':
             split = line.split(',')
-            if(split[2] == "Friday"):
+            if split[3] != now.isocalendar()[1]:
+                print(split[3])
                 return abs(totalTime)
-            print("split for time", split[1].split(':'))
             h, m, s = split[1].split(':')
             totalTime += timedelta(hours=int(h), minutes=int(m), seconds=float(s))
 
 
 def calcTime():
     new = datetime.now()
-    if not(os.path.isfile(path)):
-        header = ['Date', 'TimeToday', 'DayOfWeek', 'TotalTimeWeek']
+    if not os.path.isfile(path):
+        header = ['Date', 'TimeToday', 'DayOfWeek', 'WeekNum', 'TotalTimeWeek']
         with open(path, 'w+', newline='\n') as f:
             writer = csv.writer(f)
             writer.writerow(header)
             f.close()
-    row = [now.date(), new - now, weekDay(now.weekday()), weekTotal(new - now)]
+    row = [now.date(), new - now, weekDay(now.weekday()), now.isocalendar()[1], weekTotal(new - now)]
     print(row)
     with open(path, 'a+', newline='\n') as csvFile:
         writer = csv.writer(csvFile)
@@ -56,7 +56,7 @@ def calcTime():
 
 while True:
     k = input()
-    if(k == "exit"):
+    if k == "exit":
         calcTime()
         print("Shutting down")
         #os.system("shutdown /s /t 1") #only works on windows, change if for linux
