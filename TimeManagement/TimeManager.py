@@ -40,12 +40,6 @@ def weekTotal(Timetoday):
 
 def calcTime():
     new = datetime.now()
-    if not os.path.isfile(path):
-        header = ['Date', 'TimeToday', 'DayOfWeek', 'WeekNum', 'TotalTimeWeek']
-        with open(path, 'w+', newline='\n') as f:
-            writer = csv.writer(f)
-            writer.writerow(header)
-            f.close()
     row = [now.date(), new - now, weekDay(now.weekday()), now.strftime("%V"), weekTotal(new - now)]
     print(row)
     with open(path, 'a+', newline='\n') as csvFile:
@@ -54,6 +48,13 @@ def calcTime():
     csvFile.close()
 
 
+if not os.path.isfile(path):
+    header = ['Date', 'TimeToday', 'DayOfWeek', 'WeekNum', 'TotalTimeWeek']
+    with open(path, 'w+', newline='\n') as f:
+        writer = csv.writer(f)
+        writer.writerow(header)
+        f.close()
+
 while True:
     k = input()
     if k == "exit":
@@ -61,7 +62,7 @@ while True:
         print("Shutting down")
         os.system("shutdown /s /t 1") #only works on windows, change if for linux
         break
-    elif k == "today":
+    elif k == "time":
         new = datetime.now()
         print("Time today so far ", new - now)
     elif k == "week":
@@ -69,4 +70,4 @@ while True:
         print("Time this week so far ", weekTotal(new - now))
     else:
         print("Not a valid command")
-        print("Valid commands are:\n - exit - to shutdown\n - today - for today's time\n - week - for week's total time")
+        print("Valid commands are:\n - exit - to shutdown\n - time - for today's time\n - week - for week's total time")
