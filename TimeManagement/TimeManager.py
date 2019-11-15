@@ -18,6 +18,14 @@ def weekDay(day):
     }
     return switcher.get(day)
 
+def hourBasedTime(time):
+    seconds = time.total_seconds()
+    hours = seconds // 3600
+    minutes = (seconds % 3600) // 60
+    seconds = seconds % 60
+
+    str = '{}:{}:{}'.format(int(hours), int(minutes), int(seconds))
+    return str
 
 def weekTotal(Timetoday):
     totalTime = Timetoday
@@ -26,21 +34,21 @@ def weekTotal(Timetoday):
     file.close()
     del lines[0]
     if not lines:
-        return abs(totalTime)
+        return totalTime
     lines.reverse()
     for line in lines:
         if line != '\r\n':
             split = line.split(',')
             if split[3] != now.strftime("%V"):
-                return abs(totalTime)
+                return totalTime
             h, m, s = split[1].split(':')
             totalTime += timedelta(hours=int(h), minutes=int(m), seconds=float(s))
-    return abs(totalTime)
+    return totalTime
 
 
 def calcTime():
     new = datetime.now()
-    row = [now.date(), new - now, weekDay(now.weekday()), now.strftime("%V"), weekTotal(new - now)]
+    row = [now.date(), new - now, weekDay(now.weekday()), now.strftime("%V"), hourBasedTime(weekTotal(new - now))]
     print(row)
     with open(path, 'a+', newline='\n') as csvFile:
         writer = csv.writer(csvFile)
@@ -67,7 +75,7 @@ while True:
         print("Time today so far ", new - now)
     elif k == "week":
         new = datetime.now()
-        print("Time this week so far ", weekTotal(new - now))
+        print("Time this week so far ", hourBasedTime(weekTotal(new - now)))
     else:
         print("Not a valid command")
         print("Valid commands are:\n - exit - to shutdown\n - time - for today's time\n - week - for week's total time")
