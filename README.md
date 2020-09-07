@@ -1,5 +1,6 @@
 # TimeManagement
 Simple time management for keeping track of hours spent.
 
-Meant to be used by starting up with boot.
-Simply type 'exit' when ready to shutdown windows, time since startup will be logged as csv and windows shutdown.
+Normal use is to set the startup part to be run on either boot or login, and the shutdown part to be run on either shutdown or logoff.
+
+Build the startup and shutdown separately with pyinstaller, if needed as exe files.
