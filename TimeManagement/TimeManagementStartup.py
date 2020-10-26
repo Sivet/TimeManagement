@@ -5,11 +5,12 @@ import TimeManagementResources as src
 
 now = datetime.now()
 
+print('path:' + src.path)
+
 def writeInitTime(writer):
     row = [now.strftime("%V"), now.date(), src.weekDay(now.weekday()), now.time().strftime('%H:%M:%S'), '-', '-', '-']
     print(row)
     writer.writerow(row)
-
 
 if not os.path.isfile(src.path):
     print("Found no file")
@@ -36,4 +37,3 @@ with open(src.path, 'a+', newline='\n') as f:
         writer = csv.writer(f, delimiter=';')
         writeInitTime(writer)
         f.close()
-

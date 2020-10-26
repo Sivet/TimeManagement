@@ -1,8 +1,11 @@
 from datetime import datetime
 import os
 
-# only works on windows, change if for linux
-path = os.path.join('C:/Users', os.getlogin(), 'Documents/' + os.getlogin() + datetime.now().strftime('%Y%b') + '.csv')
+
+if(os.name == 'nt'):
+    path = os.path.join('C:/Users', os.getlogin(), 'Documents/' + os.getlogin() + datetime.now().strftime('%Y%b') + '.csv') #Windows
+else:
+    path = os.path.expanduser('~/Documents/' + os.getlogin() + datetime.now().strftime('%Y%b') + '.csv') #Linux
 
 
 def weekDay(day):
@@ -26,4 +29,3 @@ def hourBasedTime(time):
 
     string = '{}:{}:{}'.format(int(hours), int(minutes), int(seconds))
     return string
-

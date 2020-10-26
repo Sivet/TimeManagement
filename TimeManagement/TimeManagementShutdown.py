@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 import csv
 import TimeManagementResources as src
 
+print('path:' + src.path)
 
 def timeToday(startTime):
     h, m, s = startTime.split(':')
