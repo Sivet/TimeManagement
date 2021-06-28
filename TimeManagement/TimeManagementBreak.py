@@ -12,7 +12,7 @@ print("Break started, type \"Done\" to end")
 while True:
     value = input()
 
-    if value == "Done":
+    if value.upper() == "DONE":
         newBreak = datetime.now() - startBreak
         data = list(csv.reader(open(src.path), delimiter=src.delimiter))
         data[-1][5] = src.hourBasedTime(breakTime(data[-1][5]))
