@@ -4,9 +4,10 @@ import TimeManagementResources as src
 
 print('path:' + src.path)
 
-def timeToday(startTime):
-    h, m, s = startTime.split(':')
-    return endTime - timedelta(hours=int(h), minutes=int(m), seconds=float(s))
+def timeToday(startTime, breakTime):
+    startH, startM, startS = startTime.split(':')
+    breakH, breakM, breakS = breakTime.split(':')
+    return (endTime - timedelta(hours=int(startH), minutes=int(startM), seconds=float(startS))) - timedelta(hours=int(breakH), minutes=int(breakM), seconds=float(breakS))
 
 
 def monthTotal():
@@ -23,8 +24,8 @@ data = list(csv.reader(open(src.path), delimiter=src.delimiter))
 
 endTime = datetime.now()
 data[-1][4] = endTime.time().strftime('%H:%M:%S')
-data[-1][5] = timeToday(data[-1][3]).strftime('%H:%M:%S')
-#data[-1][6] = src.hourBasedTime(monthTotal())
+data[-1][6] = timeToday(data[-1][3], data[-1][5]).strftime('%H:%M:%S')
+#data[-1][7] = src.hourBasedTime(monthTotal())
 
 with open(src.path, 'w+', newline='\n') as f:
     writer = csv.writer(f, delimiter=src.delimiter)

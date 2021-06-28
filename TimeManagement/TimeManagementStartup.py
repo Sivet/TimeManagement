@@ -8,13 +8,13 @@ now = datetime.now()
 #print('path:' + src.path)
 
 def writeInitTime(writer):
-    row = [now.strftime("%V"), now.date(), src.weekDay(now.weekday()), now.time().strftime('%H:%M:%S'), '-', '-']#, '-']
+    row = [now.strftime("%V"), now.date(), src.weekDay(now.weekday()), now.time().strftime('%H:%M:%S'), '-', '0:0:0', '-']#, '-']
     print(row)
     writer.writerow(row)
 
 if not os.path.isfile(src.path):
     print("Found no file")
-    header = ['WeekNum', 'Date', 'DayOfWeek', 'StartTime', 'EndTime', 'TimeToday']#, 'TimeMonth']
+    header = ['WeekNum', 'Date', 'DayOfWeek', 'StartTime', 'EndTime', 'BreakTime', 'TimeToday']#, 'TimeMonth']
     try:
         with open(src.path, 'w+', newline='\n') as f:
             writer = csv.writer(f, delimiter=src.delimiter)
