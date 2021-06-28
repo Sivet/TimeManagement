@@ -19,13 +19,13 @@ def monthTotal():
     return totalTime
 
 
-data = list(csv.reader(open(src.path), delimiter=';'))
+data = list(csv.reader(open(src.path), delimiter=src.delimiter))
 
 endTime = datetime.now()
 data[-1][4] = endTime.time().strftime('%H:%M:%S')
 data[-1][5] = timeToday(data[-1][3]).strftime('%H:%M:%S')
-data[-1][6] = src.hourBasedTime(monthTotal())
+#data[-1][6] = src.hourBasedTime(monthTotal())
 
 with open(src.path, 'w+', newline='\n') as f:
-    writer = csv.writer(f, delimiter=';')
+    writer = csv.writer(f, delimiter=src.delimiter)
     writer.writerows(data)

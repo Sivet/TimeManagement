@@ -5,9 +5,11 @@ import os
 if(os.name == 'nt'):
     path = os.path.join('C:/Users', os.getlogin(), 'Documents/' + os.getlogin() + datetime.now().strftime('%Y%b') + '.csv') #Windows
 else:
-    path = os.path.expanduser('~/Documents/' + os.getlogin() + datetime.now().strftime('%Y%b') + '.csv') #Linux
+    path = os.path.expanduser("~/Documents/" + str(os.getlogin()) + datetime.now().strftime("%Y%b") + ".csv") #Linux
 
+delimiter = ','
 
+#str(os.getenv('LOGNAME'))
 def weekDay(day):
     switcher = {
         0: "Monday",
