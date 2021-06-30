@@ -1,0 +1,11 @@
+[Unit]
+Description=Timemangement service
+[Service]
+Type=oneshot
+RemainAfterExit=true
+StandardOutput=journal
+ExecStart=/usr/bin/python3 /usr/local/bin/TimeManagement/TimeManagementStartup.py
+ExecStop=/usr/bin/python3 /usr/local/bin/TimeManagement/TimeManagementShutdown.py
+[Install]
+WantedBy=default.target
+
