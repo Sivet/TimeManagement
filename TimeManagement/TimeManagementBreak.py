@@ -16,6 +16,7 @@ while True:
         newBreak = datetime.now() - startBreak
         data = list(csv.reader(open(src.path), delimiter=src.delimiter))
         data[-1][5] = src.hourBasedTime(breakTime(data[-1][5]))
+        print("Break was " + data[-1][5] + " long")
         break
     else:
         print("Command not recognized")
