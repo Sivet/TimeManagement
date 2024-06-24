@@ -14,12 +14,8 @@ def weekTotal(weekNumber):
     dataIter = iter(data)
     next(dataIter)
     for line in dataIter:
-        print(line[0])
         if line[0] == weekNumber:
             h, m, s = line[6].split(':')
-            print(h)
-            print(m)
-            print(s)
             weekTime += timedelta(hours=int(h), minutes=int(m), seconds=float(s))
     return weekTime
 
@@ -34,10 +30,6 @@ def monthTotal():
 
 
 data = list(csv.reader(open(src.path), delimiter=src.delimiter))
-
-dataIterTemp = iter(data)
-for lineTemp in dataIterTemp:
-    print(lineTemp)
 
 endTime = datetime.now()
 data[-1][4] = endTime.time().strftime('%H:%M:%S')
